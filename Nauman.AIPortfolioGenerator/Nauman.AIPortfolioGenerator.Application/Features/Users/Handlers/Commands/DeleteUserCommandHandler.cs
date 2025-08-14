@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Nauman.AIPortfolioGenerator.Application.Features.Users.Requests.Commands;
-using Nauman.AIPortfolioGenerator.Application.Persistence.Contracts;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Text;

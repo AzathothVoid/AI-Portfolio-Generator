@@ -2,7 +2,7 @@
 using MediatR;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio;
 using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Queries;
-using Nauman.AIPortfolioGenerator.Application.Persistence.Contracts;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;

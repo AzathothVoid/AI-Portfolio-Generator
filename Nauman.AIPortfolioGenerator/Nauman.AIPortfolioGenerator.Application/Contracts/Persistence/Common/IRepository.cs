@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
 
-namespace Nauman.AIPortfolioGenerator.Application.Persistence.Contracts.common
+namespace Nauman.AIPortfolioGenerator.Application.Contracts.Persistence.common
 {
     public interface IRepository<T> where T : class
     {

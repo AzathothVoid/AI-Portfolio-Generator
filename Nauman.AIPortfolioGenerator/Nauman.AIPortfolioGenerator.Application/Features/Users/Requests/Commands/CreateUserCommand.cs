@@ -8,6 +8,6 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Requests.Comman
 {
     public class CreateUserCommand : IRequest<int>
     {
-        public CreateUserDTOcs userDTO { get; set; }
+        public CreateUserDTO userDTO { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nauman.AIPortfolioGenerator.Application.Contracts
+namespace Nauman.AIPortfolioGenerator.Application.Persistence
 {
     public interface IPasswordHasher
     {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Nauman.AIPortfolioGenerator.Application.Persistence.Contracts;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Text;

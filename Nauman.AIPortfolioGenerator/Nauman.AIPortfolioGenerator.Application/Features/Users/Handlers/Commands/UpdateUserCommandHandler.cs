@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Nauman.AIPortfolioGenerator.Application.Contracts;
 using Nauman.AIPortfolioGenerator.Application.DTOs.User.Validators;
 using Nauman.AIPortfolioGenerator.Application.Features.Users.Requests.Commands;
-using Nauman.AIPortfolioGenerator.Application.Persistence.Contracts;
+using Nauman.AIPortfolioGenerator.Application.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Text;
