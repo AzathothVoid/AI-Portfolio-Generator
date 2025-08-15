@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nauman.AIPortfolioGenerator.Domain\Nauman.AIPortfolioGenerator.Domain.csproj" />
+    <ProjectReference Include="..\Nauman.AIPortfolioGenerator.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

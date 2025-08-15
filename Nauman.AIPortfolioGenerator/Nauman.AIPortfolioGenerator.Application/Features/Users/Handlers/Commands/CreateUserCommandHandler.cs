@@ -9,7 +9,7 @@ using Nauman.AIPortfolioGenerator.Application.Responses;
 using Nauman.AIPortfolioGenerator.Domain;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,7 +31,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Handlers.Comman
         public async Task<CustomCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var response = new CustomCommandResponse();
-            var validator = new CreateTemplateDTOValidator();
+            var validator = new CreateUserDTOValidator();
             var validationResult = await validator.ValidateAsync(request.userDTO);
 
             if (!validationResult.IsValid)

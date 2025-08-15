@@ -9,6 +9,6 @@ namespace Nauman.AIPortfolioGenerator.Application.Contracts.Persistence
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task ChangePremiumStatus(User user, bool? premiumStatus);
+        Task ChangePremiumStatus(User user, bool premiumStatus);
     }
 }

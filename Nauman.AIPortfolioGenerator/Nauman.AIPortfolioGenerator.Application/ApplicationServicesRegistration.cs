@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Nauman.AIPortfolioGenerator.Application
 {
-    public static class DependencyInjection
+    public static class ApplicationServicesRegistration
     {
         public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services)
         {
