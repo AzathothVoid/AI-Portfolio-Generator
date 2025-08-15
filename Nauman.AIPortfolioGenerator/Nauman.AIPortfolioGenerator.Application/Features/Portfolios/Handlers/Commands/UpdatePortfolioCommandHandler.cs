@@ -6,6 +6,7 @@ using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Comma
 using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +31,12 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
             var validationResult = await validator.ValidateAsync(request.portfolioDTO);
 
             if (!validationResult.IsValid)
-                throw new Exception();
+            {
+                response.Success = false;
+                response.Message = "Update failed";
+                response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                return response;
+            }
 
             var portfolio = await _portfolioRepository.GetAsync(request.Id);
 
@@ -39,7 +45,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
             await _portfolioRepository.UpdateAsync(portfolio);
 
             response.Success = true;
-            response.Message = "Deletion Successful";
+            response.Message = "Update Successful";
             return response;
         }
     }

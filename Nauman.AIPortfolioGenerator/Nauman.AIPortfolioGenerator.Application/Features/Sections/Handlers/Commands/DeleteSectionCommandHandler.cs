@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using Nauman.AIPortfolioGenerator.Application.Features.Sections.Requests.Commands;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Features.Sections.Requests.Commands;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Sections.Handlers.Commands
 {
-    public class DeleteSectionCommandHandler : IRequestHandler<DeleteSectionCommand, Unit>
+    public class DeleteSectionCommandHandler : IRequestHandler<DeleteSectionCommand, BaseResponse>
     {
         private readonly ISectionRepository _sectionRepository;
         private readonly IMapper _mapper;
@@ -21,13 +22,16 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Sections.Handlers.Com
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse();
             var section = await _sectionRepository.GetAsync(request.Id);
 
             await _sectionRepository.DeleteAsync(section);
 
-            return Unit.Value;
+            response.Success = true;
+            response.Message = "Deletion Successful";
+            return response;
         }
     }
 }
