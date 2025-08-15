@@ -8,10 +8,11 @@ using MediatR;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio;
 using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Queries;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Queries
 {
-    public class GetPortfolioListRequestHandler : IRequestHandler<GetPortfolioListRequest, List<PortfolioDTO>>
+    public class GetPortfolioListRequestHandler : IRequestHandler<GetPortfolioListRequest, CustomQueryResponse<List<PortfolioDTO>>>
     {
         private readonly IPortfolioRepository _portfolRepository;
         private readonly IMapper _mapper;
@@ -21,10 +22,16 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Q
             _portfolRepository = portfolRepository;
             _mapper = mapper;
         }
-        public async Task<List<PortfolioDTO>> Handle(GetPortfolioListRequest request, CancellationToken cancellationToken)
+        public async Task<CustomQueryResponse<List<PortfolioDTO>>> Handle(GetPortfolioListRequest request, CancellationToken cancellationToken)
         {
+            var response = new CustomQueryResponse<List<PortfolioDTO>>();
             var portfolios = await _portfolRepository.GetAllAsync();
-            return _mapper.Map<List<PortfolioDTO>>(portfolios);
+
+            response.Success = true;
+            response.Message = "GET Successful";
+            response.Data = _mapper.Map<List<PortfolioDTO>>(portfolios);
+
+            return response;
         }
     }
 }

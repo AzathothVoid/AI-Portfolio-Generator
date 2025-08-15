@@ -40,7 +40,6 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
                 response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
                 return response;
             }
-                throw new Exception();
 
             var portfolio = _mapper.Map<Portfolio>(request.portfolioDTO);
 

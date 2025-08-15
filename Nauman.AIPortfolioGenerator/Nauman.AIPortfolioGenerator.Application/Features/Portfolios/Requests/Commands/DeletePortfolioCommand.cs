@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Commands
 {
-    public class DeletePortfolioCommand : IRequest<Unit>
+    public class DeletePortfolioCommand : IRequest<BaseResponse>
     {
         public int Id { get; set; }
     }

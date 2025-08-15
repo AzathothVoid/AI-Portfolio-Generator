@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio.Validators;
 using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Commands;
-using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Commands
 {
-    public class UpdatePortfolioCommandHandler : IRequestHandler<UpdatePortfolioCommand, Unit>
+    public class UpdatePortfolioCommandHandler : IRequestHandler<UpdatePortfolioCommand, BaseResponse>
     {
         private readonly IPortfolioRepository _portfolioRepository;
         private readonly IMapper _mapper;
@@ -22,8 +23,9 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(UpdatePortfolioCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(UpdatePortfolioCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse();
             var validator = new UpdatePortfolioDTOValidator();
             var validationResult = await validator.ValidateAsync(request.portfolioDTO);
 
@@ -36,7 +38,9 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
 
             await _portfolioRepository.UpdateAsync(portfolio);
 
-            return Unit.Value;
+            response.Success = true;
+            response.Message = "Deletion Successful";
+            return response;
         }
     }
 }

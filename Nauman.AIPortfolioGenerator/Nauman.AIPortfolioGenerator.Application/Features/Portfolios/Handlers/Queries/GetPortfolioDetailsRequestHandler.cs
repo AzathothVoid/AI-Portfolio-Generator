@@ -28,7 +28,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Q
             var portfolioDetail = await _portfolioRepository.GetAsync(request.id);
 
             response.Success = true;
-            response.Message = "OK";
+            response.Message = "GET Successful";
             response.Data = _mapper.Map<PortfolioDTO>(portfolioDetail);
             return response;
         }
