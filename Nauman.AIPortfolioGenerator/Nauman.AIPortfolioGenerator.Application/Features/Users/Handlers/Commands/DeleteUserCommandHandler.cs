@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Handlers.Commands
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, BaseResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -21,13 +22,16 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Handlers.Comman
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse();
             var user = await _userRepository.GetAsync(request.Id);
 
             await _userRepository.DeleteAsync(user);
 
-            return Unit.Value;
+            response.Success = true;
+            response.Message = "Deletion Successful";
+            return response;
         }
     }
 }

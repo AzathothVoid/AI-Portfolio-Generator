@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using Nauman.AIPortfolioGenerator.Application.DTOs.User;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Requests.Queries
 {
-    public class GetUserListRequest : IRequest<List<UserDTO>>
+    public class GetUserListRequest : IRequest<CustomQueryResponse<List<UserDTO>>>
     {
     }
 }

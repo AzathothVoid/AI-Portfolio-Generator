@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Users.Requests.Commands
 {
-    public class UpdateUserCommand : IRequest<Unit>
+    public class UpdateUserCommand : IRequest<BaseResponse>
     {
         public int Id { get; set; }
         public UpdateUserDTO? userDTO { get; set; }
