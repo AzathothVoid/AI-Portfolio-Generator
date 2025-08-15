@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Sections.Handlers.Queries
 {
-    public class GetSectionDetailsRequestHandler : IRequestHandler<GetSectionDetailsRequest, CustomQueryResponse<SectionDTO>
+    public class GetSectionDetailsRequestHandler : IRequestHandler<GetSectionDetailsRequest, CustomQueryResponse<SectionDTO>>
     {
         private readonly ISectionRepository _sectionRepository;
         private readonly IMapper _mapper;

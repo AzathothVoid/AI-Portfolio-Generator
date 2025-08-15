@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Sections.Requests.Queries
 {
-    public class GetSectionDetailsRequest : IRequest<CustomQueryResponse<SectionDTO>
+    public class GetSectionDetailsRequest : IRequest<CustomQueryResponse<SectionDTO>>
     {
         public int Id { get; set; }
     }

@@ -1,18 +1,21 @@
 ﻿using AutoMapper;
 using MediatR;
+using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Template.Validators;
 using Nauman.AIPortfolioGenerator.Application.Features.Templates.Requests.Commands;
-using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using Nauman.AIPortfolioGenerator.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Templates.Handlers.Commands
 {
-    public class CreateTemplateCommandHandler : IRequestHandler<CreateTemplateCommand, int>
+    public class CreateTemplateCommandHandler : IRequestHandler<CreateTemplateCommand, CustomCommandResponse>
     {
         private readonly ITemplateRepository _templateRepository;
         private readonly IMapper _mapper;
@@ -23,20 +26,28 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Templates.Handlers.Co
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(CreateTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<CustomCommandResponse> Handle(CreateTemplateCommand request, CancellationToken cancellationToken)
         {
-
+            var response = new CustomCommandResponse();
             var validator = new CreateTemplateDTOValidator();
             var validationResult = await validator.ValidateAsync(request.templateDTO);
 
             if (!validationResult.IsValid)
-                throw new Exception();
+            {
+                response.Success = false;
+                response.Message = "Creation failed";
+                response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                return response;
+            }
 
             var template = _mapper.Map<Template>(request.templateDTO);
 
             template = await _templateRepository.AddAsync(template);
 
-            return template.Id;
+            response.Success = true;
+            response.Message = "Creation Successful";
+            response.Id = template.Id;
+            return response;
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using Nauman.AIPortfolioGenerator.Application.Features.Templates.Requests.Commands;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
+using Nauman.AIPortfolioGenerator.Application.Features.Templates.Requests.Commands;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Templates.Handlers.Commands
 {
-    public class DeleteTemplateCommandHandler : IRequestHandler<DeleteTemplateCommand, Unit>
+    public class DeleteTemplateCommandHandler : IRequestHandler<DeleteTemplateCommand, BaseResponse>
     {
         private readonly ITemplateRepository _templateRepository;
         private readonly IMapper _mapper;
@@ -21,13 +22,16 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Templates.Handlers.Co
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(DeleteTemplateCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse();
             var template = await _templateRepository.GetAsync(request.Id);
 
             await _templateRepository.DeleteAsync(template);
 
-            return Unit.Value;
+            response.Success = true;
+            response.Message = "Deletion Successful";
+            return response;
         }
     }
 }
