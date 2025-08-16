@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly AIPortfolioDbContext _dbContext;
 
-        public GenericRepository(AIPortfolioDbContext dbContext)
+        public Repository(AIPortfolioDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    public class TemplateRepository : GenericRepository<Template>, ITemplateRepository
+    public class TemplateRepository : Repository<Template>, ITemplateRepository
     {
         private readonly AIPortfolioDbContext _dbContext;
 

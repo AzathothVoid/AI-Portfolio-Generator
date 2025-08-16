@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly AIPortfolioDbContext _dbContext;
 
