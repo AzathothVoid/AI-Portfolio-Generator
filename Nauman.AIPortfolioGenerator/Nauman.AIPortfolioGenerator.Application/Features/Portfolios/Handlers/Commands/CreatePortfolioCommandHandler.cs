@@ -15,14 +15,12 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
     public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, CustomCommandResponse>
     {
         private readonly IPortfolioRepository _portfolioRepository;
-        private readonly IUserRepository _userRepository;
         private readonly ITemplateRepository _templateRepository;
         private readonly IMapper _mapper;
 
-        public CreatePortfolioCommandHandler(IPortfolioRepository portfolioRepository, IUserRepository userRepository, ITemplateRepository templateRepository, IMapper mapper)
+        public CreatePortfolioCommandHandler(IPortfolioRepository portfolioRepository, ITemplateRepository templateRepository, IMapper mapper)
         {
             _portfolioRepository = portfolioRepository;
-            _userRepository = userRepository;
             _templateRepository = templateRepository;
             _mapper = mapper;
         }
@@ -30,7 +28,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
         public async Task<CustomCommandResponse> Handle(CreatePortfolioCommand request, CancellationToken cancellationToken)
         {
             var response = new CustomCommandResponse();
-            var validator = new CreatePortfolioDTOValidator(_userRepository, _templateRepository);
+            var validator = new CreatePortfolioDTOValidator(_templateRepository);
             var validationResult = await validator.ValidateAsync(request.portfolioDTO);
 
             if (!validationResult.IsValid)

@@ -6,7 +6,7 @@ namespace Nauman.AIPortfolioGenerator.Domain
 {
     public class Portfolio : AuditableWithBaseEntity
     {
-        public User User { get; set; }
+        public string UserId { get; set; }
         public Template Template { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }

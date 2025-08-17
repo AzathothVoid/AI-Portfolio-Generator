@@ -63,7 +63,6 @@ namespace Persistence
 
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<Template> Templates { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Section> Sections { get; set; }
     }
 }

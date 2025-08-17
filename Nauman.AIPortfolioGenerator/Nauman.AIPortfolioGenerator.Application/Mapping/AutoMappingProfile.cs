@@ -6,7 +6,6 @@ using System.Text;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Section;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Template;
-using Nauman.AIPortfolioGenerator.Application.DTOs.User;
 
 namespace Nauman.AIPortfolioGenerator.Application.Mapper
 {
@@ -16,7 +15,6 @@ namespace Nauman.AIPortfolioGenerator.Application.Mapper
         {
             CreateMap<Portfolio, PortfolioDTO>().ReverseMap();
             CreateMap<Section, SectionDTO>().ReverseMap();
-            CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Template, TemplateDTO>().ReverseMap();
         }
     }

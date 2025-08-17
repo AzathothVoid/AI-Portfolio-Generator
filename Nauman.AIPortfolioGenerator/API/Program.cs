@@ -23,6 +23,8 @@ builder.Services.AddCors(o =>
 
 var app = builder.Build();
 
+app.UseAuthentication();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,6 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.MapControllers();

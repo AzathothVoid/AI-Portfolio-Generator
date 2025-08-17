@@ -6,7 +6,7 @@ namespace Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio
 {
     public class CreatePortfolioDTO : IPortfolioDTO
     {
-        public int User { get; set; }
+        public string UserId { get; set; }
         public int Template { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }

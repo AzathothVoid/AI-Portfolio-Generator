@@ -24,7 +24,6 @@ namespace Persistence
             services.AddScoped<IPortfolioRepository, PortfolioRepository>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

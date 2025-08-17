@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nauman.AIPortfolioGenerator.Application.Persistence
+namespace Application.Contracts.Infrastructure
 {
     public interface IPasswordHasher
     {
-        string HashPassword(User user, string plainPassword);
-        PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword);
+        string HashPassword( string plainPassword);
+        PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword);
     }
 
     public enum PasswordVerificationResult

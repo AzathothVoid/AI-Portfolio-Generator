@@ -4,7 +4,6 @@ using Infrastructure.Hasher;
 using Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nauman.AIPortfolioGenerator.Application.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
