@@ -1,5 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio;
+using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Commands;
+using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Queries;
+using Nauman.AIPortfolioGenerator.Application.Responses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,34 +22,42 @@ namespace API.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<CustomQueryResponse<List<PortfolioDTO>>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var response = await _mediator.Send(new GetPortfolioListRequest());
+            return Ok(response);
         }
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<CustomQueryResponse<PortfolioDTO>>> Get(int id)
         {
-            return "value";
+            var response = await _mediator.Send(new GetPortfolioDetailsRequest { id = id });
+            return Ok(response);
         }
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<CustomCommandResponse>> Post([FromBody] CreatePortfolioDTO portfolio)
         {
+            var response = await _mediator.Send(new CreatePortfolioCommand { portfolioDTO = portfolio });
+            return Ok(response);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<CustomCommandResponse>> Put(int id, [FromBody] UpdatePortfolioDTO portfolio)
         {
+            var response = await _mediator.Send(new UpdatePortfolioCommand { Id = id, portfolioDTO = portfolio });
+            return Ok(response);
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<BaseResponse>> Delete(int id)
         {
+            var response = await _mediator.Send(new DeletePortfolioCommand { Id = id });
+            return Ok(response);
         }
     }
 }
