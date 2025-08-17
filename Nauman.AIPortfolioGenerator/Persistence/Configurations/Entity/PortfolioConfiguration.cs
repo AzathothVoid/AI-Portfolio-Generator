@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Configurations
+namespace Persistence.Configurations.Entity
 {
-    public class TemplateConfiguration : IEntityTypeConfiguration<Template>
+    public class PortfolioConfiguration : IEntityTypeConfiguration<Portfolio>
     {
-        public void Configure(EntityTypeBuilder<Template> builder)
+        public void Configure(EntityTypeBuilder<Portfolio> builder)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Section> builder)
         {
-            throw new NotImplementedException();
         }
     }
 }
