@@ -14,8 +14,11 @@ namespace Nauman.AIPortfolioGenerator.Application.Mapper
         public AutoMappingProfile()
         {
             CreateMap<Portfolio, PortfolioDTO>().ReverseMap();
+            CreateMap<Portfolio, CreatePortfolioDTO>().ReverseMap();
             CreateMap<Section, SectionDTO>().ReverseMap();
+            CreateMap<Section, UpdateSectionDTO>().ReverseMap();
             CreateMap<Template, TemplateDTO>().ReverseMap();
+            CreateMap<UpdateTemplateDTO, Template>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.Responses;
+using AutoMapper;
 using MediatR;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Section;
@@ -27,7 +28,15 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Templates.Handlers.Qu
         public async Task<CustomQueryResponse<TemplateDTO>> Handle(GetTemplateDetailsRequest request, CancellationToken cancellationToken)
         {
             var response = new CustomQueryResponse<TemplateDTO>();
-            var templateDetail = _templateRepository.GetAsync(request.Id);
+            var templateDetail = await _templateRepository.GetAsync(request.Id);
+
+            if (templateDetail == null)
+            {
+                response.Success = false;
+                response.Message = "No such record";
+                response.Data = null;
+                return response;
+            }
 
             response.Success = true;
             response.Message = "GET Successful";

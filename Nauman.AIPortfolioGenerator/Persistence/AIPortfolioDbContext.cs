@@ -50,11 +50,11 @@ namespace Persistence
         {
             foreach (var entry in ChangeTracker.Entries<AuditableWithBaseEntity>())
             {
-                entry.Entity.UpdatedAt = DateTime.Now;
+                entry.Entity.UpdatedAt = DateTime.UtcNow;
 
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedAt = DateTime.Now;
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
                 }
             }
 

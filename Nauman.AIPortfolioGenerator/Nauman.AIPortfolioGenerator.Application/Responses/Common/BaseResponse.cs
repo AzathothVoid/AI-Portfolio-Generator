@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nauman.AIPortfolioGenerator.Application.Responses
+namespace Application.Responses.Common
 {
     public class BaseResponse
     {

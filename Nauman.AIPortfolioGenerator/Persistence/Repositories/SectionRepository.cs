@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Domain;
+using Persistence.Repositories.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

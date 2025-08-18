@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Responses.Common;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio;
 using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Commands;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Repositories
+namespace Persistence.Repositories.Common
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -19,7 +19,7 @@ namespace Persistence.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
-            await _dbContext.AddAsync<T>(entity);
+            await _dbContext.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }

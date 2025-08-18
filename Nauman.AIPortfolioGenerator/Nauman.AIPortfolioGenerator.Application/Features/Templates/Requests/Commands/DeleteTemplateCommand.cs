@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Nauman.AIPortfolioGenerator.Application.Responses;
+﻿using Application.Responses.Common;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;

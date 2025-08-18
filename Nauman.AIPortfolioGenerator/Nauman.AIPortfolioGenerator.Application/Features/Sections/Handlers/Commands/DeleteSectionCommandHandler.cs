@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.Responses.Common;
+using AutoMapper;
 using MediatR;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.Features.Sections.Requests.Commands;
-using Nauman.AIPortfolioGenerator.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;

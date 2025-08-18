@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nauman.AIPortfolioGenerator.Application.Responses;
+using Application.Responses.Common;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Commands
 {

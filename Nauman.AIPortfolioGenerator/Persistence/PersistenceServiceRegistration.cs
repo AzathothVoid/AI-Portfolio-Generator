@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence.common;
 using Persistence.Repositories;
+using Persistence.Repositories.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Persistence
         {
             services.AddDbContext<AIPortfolioDbContext>(options =>
                 options.UseNpgsql(
-                    configuration.GetConnectionString("AIPortfolioConectionString")));
+                    configuration.GetConnectionString("AIPortfolioMainDbConectionString")));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPortfolioRepository, PortfolioRepository>();

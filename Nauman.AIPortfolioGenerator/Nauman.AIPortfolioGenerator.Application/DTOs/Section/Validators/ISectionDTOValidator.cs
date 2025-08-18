@@ -19,15 +19,15 @@ namespace Nauman.AIPortfolioGenerator.Application.DTOs.Section.Validators
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull().WithMessage("{PropertyName} is null")
-                .MinimumLength(10).WithMessage("{PropertyName} must be greater than {ComparisonValue} characters")
-                .MaximumLength(100).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters");
+                .MinimumLength(10).WithMessage("{PropertyName} must be greater than 10 characters")
+                .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters");
 
             RuleFor(p => p.Type)
                 .NotNull().WithMessage("{PropertyName} is null")
                 .IsInEnum().WithMessage("{PropertyName} is invalid");
 
             RuleFor(p => p.Description)
-                     .MinimumLength(10).WithMessage("{PropertyName} must be greater than {ComparisonValue} characters");
+                     .MinimumLength(10).WithMessage("{PropertyName} must be greater than 10 characters");
 
             RuleFor(p => p.Portfolio)
                 .GreaterThan(0).WithMessage("{PropertyName} must be greater than {ComparisonValue}")
