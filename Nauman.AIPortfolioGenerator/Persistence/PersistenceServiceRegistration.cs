@@ -17,7 +17,7 @@ namespace Persistence
         public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AIPortfolioDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     configuration.GetConnectionString("AIPortfolioConectionString")));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
