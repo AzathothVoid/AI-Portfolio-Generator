@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Models.Identity
+namespace Identity
 {
-    public class RegistrationResponse
+    internal class AIPortfolioIdentityDbContext
     {
-        public string UserId { get; set; }
     }
 }
- 
