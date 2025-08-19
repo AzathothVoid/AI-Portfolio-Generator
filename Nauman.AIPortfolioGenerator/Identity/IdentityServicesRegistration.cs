@@ -17,7 +17,6 @@ namespace Identity
                 options.UseNpgsql(
                     configuration.GetConnectionString("AIPortfolioIdentityDbConectionString")
                 ));
-
             return services;
         }
     }

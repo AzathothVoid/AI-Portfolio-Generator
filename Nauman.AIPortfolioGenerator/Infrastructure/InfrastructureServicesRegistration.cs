@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Infrastructure;
-using Application.Models;
+using Application.Models.Email;
 using Infrastructure.Hasher;
 using Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;

@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Models.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;

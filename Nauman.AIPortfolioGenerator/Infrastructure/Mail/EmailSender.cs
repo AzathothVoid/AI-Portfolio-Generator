@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Infrastructure;
-using Application.Models;
+using Application.Models.Email;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
