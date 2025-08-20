@@ -4,6 +4,7 @@ using MediatR;
 using Nauman.AIPortfolioGenerator.Application.Contracts.Persistence;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio.Validators;
 using Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Requests.Commands;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
             {
                 response.Success = false;
                 response.Message = "Update failed";
-                response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                response.Errors = JsonConvert.SerializeObject(validationResult.Errors.Select(q => q.ErrorMessage).ToList());
                 return response;
             }
 

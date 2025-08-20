@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Nauman.AIPortfolioGenerator.Application.DTOs.Portfolio.Validators;
 using Nauman.AIPortfolioGenerator.Application.Responses;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Commands
 {
@@ -35,7 +36,7 @@ namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.C
             {
                 response.Success = false;
                 response.Message = "Creation failed";
-                response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                response.Errors = JsonConvert.SerializeObject(validationResult.Errors.Select(q => q.ErrorMessage).ToList());
                 return response;
             }
 

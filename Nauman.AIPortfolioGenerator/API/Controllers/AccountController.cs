@@ -21,7 +21,7 @@ namespace API.Controllers
         public async Task<ActionResult<AuthResponse>> Get([FromBody] AuthRequest request)
         {
             var response = await _authService.Login(request);
-            return response;
+            return Ok(response);
         }
 
         // POST api/<Account>
@@ -29,7 +29,7 @@ namespace API.Controllers
         public async Task<ActionResult<RegistrationResponse>> Post([FromBody] RegistrationRequest request)
         {
             var response = await _authService.Register(request);
-            return response;
+            return Ok(response);
         }
     }
 }
