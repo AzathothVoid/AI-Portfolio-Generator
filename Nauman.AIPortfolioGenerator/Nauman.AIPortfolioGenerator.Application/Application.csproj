@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Nauman.AIPortfolioGenerator.Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

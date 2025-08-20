@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nauman.AIPortfolioGenerator.Application\Application.csproj" />
+    <ProjectReference Include="..\Nauman.AIPortfolioGenerator.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
