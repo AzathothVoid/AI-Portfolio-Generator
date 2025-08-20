@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.Identity;
 using Application.Models.Identity;
 using Identity.Models;
+using Infrastructure.Hasher;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -55,10 +56,38 @@ namespace Identity.Services
             return response;
         }
 
-        public Task<RegistrationRequest> Register(RegistrationRequest request)
+        public async Task<RegistrationResponse> Register(RegistrationRequest request)
         {
-            
+            var userEmail = await _userManager.FindByEmailAsync(request.Email);
+            var userUsername = await _userManager.FindByNameAsync(request.UserName);
 
+            if (userEmail != null)
+                throw new Exception($"User with email {request.Email} already exists");
+            if (userUsername != null)
+                throw new Exception($"User with username {request.UserName} already exists")
+
+            PasswordHasher hasher = new PasswordHasher();
+
+            var newUser = new ApplicationUser
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                UserName = request.UserName,
+                EmailConfirmed = false,
+            };
+
+            var result = await _userManager.CreateAsync(newUser, request.Password);
+
+            if (!result.Succeeded)
+                throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            var response = new RegistrationResponse
+            {
+                UserId = newUser.Id
+            };
+
+            return response;
         }
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
