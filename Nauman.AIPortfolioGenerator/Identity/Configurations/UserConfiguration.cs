@@ -15,8 +15,7 @@ namespace Identity.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            var hasher = new PasswordHasher();
-
+            var hasher = new PasswordHasher<ApplicationUser>();
             builder.HasData(
                  new ApplicationUser
                  {
@@ -27,8 +26,10 @@ namespace Identity.Configurations
                      LastName="Nauman",
                      UserName="Admin101",
                      NormalizedUserName="ADMIN101",
-                     PasswordHash= hasher.HashPassword("Nauman@1"),
-                     EmailConfirmed=true
+                     PasswordHash= hasher.HashPassword(null,"Nauman@1"),
+                     EmailConfirmed=true,
+                     SecurityStamp = "8181a0a8-d261-4957-bcef-2ef57b08cb87",
+                     ConcurrencyStamp = "ce3508d6-02b6-48b9-869b-5bb87f3ce7a6"
                  },
                  new ApplicationUser
                  {
@@ -39,8 +40,10 @@ namespace Identity.Configurations
                      LastName = "Azam",
                      UserName = "USER101",
                      NormalizedUserName = "USER101",
-                     PasswordHash = hasher.HashPassword("Nauman@1"),
-                     EmailConfirmed = true
+                     PasswordHash = hasher.HashPassword(null, "Nauman@1"),
+                     EmailConfirmed = true,
+                    SecurityStamp = "92e82de8-fdc4-469a-ac66-55ebade50eb2",
+                     ConcurrencyStamp = "12458dc5-5bb9-48af-9415-b26fdc8bca53"
                  }
              );
         }

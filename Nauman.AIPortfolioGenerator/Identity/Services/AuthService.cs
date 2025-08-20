@@ -36,7 +36,7 @@ namespace Identity.Services
                 throw new Exception($"User with {request.Email} not found");
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false)
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 
             if(!result.Succeeded)
             {
@@ -64,9 +64,8 @@ namespace Identity.Services
             if (userEmail != null)
                 throw new Exception($"User with email {request.Email} already exists");
             if (userUsername != null)
-                throw new Exception($"User with username {request.UserName} already exists")
+                throw new Exception($"User with username {request.UserName} already exists");
 
-            PasswordHasher hasher = new PasswordHasher();
 
             var newUser = new ApplicationUser
             {

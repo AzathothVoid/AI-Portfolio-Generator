@@ -12,12 +12,12 @@ namespace Infrastructure.Hasher
     {
         public string HashPassword(string plainPassword)
         {
-            throw new NotImplementedException();
+            return plainPassword;
         }
 
         public PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
         {
-            throw new NotImplementedException();
+            return PasswordVerificationResult.Success;
         }
     }
 }
