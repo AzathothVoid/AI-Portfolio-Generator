@@ -9,12 +9,19 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0-preview.7.25380.108" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4-beta1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Landing\Components\" />
     <Folder Include="Features\Landing\Models\" />
-    <Folder Include="Shared\Components\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Shared\Components\Footer\" />
   </ItemGroup>
+
+	<Target Name="Tailwind" BeforeTargets="Build">
+		<Exec Command="npm run css:build" />
+	</Target>
 
 </Project>

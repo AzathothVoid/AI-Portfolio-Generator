@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager Nav
+
+<nav class="flex flex-col sm:flex-row items-center justify-between p-4 bg-black text-white" style="font-family: 'DM Sans', sans-serif;">
+    <div class="flex items-center justify-between w-full sm:w-auto mb-4 sm:mb-0">
+        <img src="images/nav-logo.png" alt="Logo" width="60" height="60" class="mr-2" />
+        <span class="text-xs sm:text-sm font-light text-gray-300">CODIC SOLUTION</span>
+
+        <button class="block sm:hidden text-white ml-auto" @onclick="ToggleMenu" type="button" aria-label="Toggle menu">
+            @if (menuOpen)
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            }
+            else
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            }
+        </button>
+    </div>
+
+    <div class="@($"flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 gap-[1.5rem] {(menuOpen ? "block" : "hidden")} sm:flex")">
+        <NavLink class="px-4 py-2 bg-transparent text-xs sm:text-sm font-light text-gray-300 hover:text-gray-100" href="/pricing">PRICING</NavLink>
+
+        <Button Href="/signin" Variant="blue" Size="sm">LOGIN</Button>
+        <Button Href="/signup" Variant="blue" Size="sm">SIGNUP</Button>
+    </div>
+</nav>
+
+@code {
+    private bool menuOpen = false;
+
+    void ToggleMenu()
+    {
+        menuOpen = !menuOpen;
+    }
+}

@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+
+@typeparam T
+
+@if (!string.IsNullOrWhiteSpace(Href))
+{
+    <NavLink href="@Href" class="@CssClass" @attributes="AdditionalAttributes">
+        @if (Variant == "blue")
+        {
+            <span class="absolute inset-0 bg-cover bg-bottom opacity-[0.3] rounded-3xl" style="@BackgroundStyle"></span>
+        }
+        <span class="relative z-10">@ChildContent</span>
+    </NavLink>
+}
+else
+{
+    <button type="@Type" class="@CssClass" @onclick="OnClick" @attributes="AdditionalAttributes">
+        @if (Variant == "blue")
+        {
+            <span class="absolute inset-0 bg-cover bg-bottom opacity-[0.3] rounded-3xl" style="@BackgroundStyle"></span>
+        }
+        <span class="relative z-10">@ChildContent</span>
+    </button>
+}
+
+@code {
+    // Basic parameters
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string Variant { get; set; } = "blue"; // currently only 'blue' supported
+    [Parameter] public string Size { get; set; } = "md";      // sm, md, lg, full
+    [Parameter] public string Margin { get; set; } = "none";  // auto, none
+    [Parameter] public string? Href { get; set; } = null;     // when set, renders as NavLink (anchor)
+    [Parameter] public string Type { get; set; } = "button";
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    // Capture arbitrary attributes (e.g., aria, id)
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string CssClass => BuildCssClass();
+    private string BackgroundStyle => "background-image: url('/assets/button-bg.png'); background-size: 250%;";
+
+    private string BuildCssClass()
+    {
+        var variantClass = Variant switch
+        {
+            "blue" => "relative bg-customBlue-800 text-white hover:bg-customBlue/80",
+            _ => "relative bg-gray-200 text-black"
+        };
+
+        var sizeClass = Size switch
+        {
+            "sm" => "px-6 py-2 text-sm min-w-[7rem]",
+            "md" => "px-8 py-2 min-w-[8rem]",
+            "lg" => "px-10 py-4 text-md min-w-[8rem]",
+            "full" => "p-2 w-full",
+            _ => "px-8 py-2"
+        };
+
+        var marginClass = Margin switch
+        {
+            "auto" => "mx-auto",
+            "none" => "m-0",
+            _ => "m-0"
+        };
+
+        // container classes include rounded and flex layout from your React version
+        return $"relative rounded-3xl flex font-medium items-center justify-center gap-2 w-fit {sizeClass} {variantClass} {marginClass}";
+    }
+}
