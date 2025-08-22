@@ -18,6 +18,8 @@
     <Folder Include="Features\Landing\Models\" />
     <Folder Include="Contracts\" />
     <Folder Include="Shared\Components\Footer\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
 	<Target Name="Tailwind" BeforeTargets="Build">
