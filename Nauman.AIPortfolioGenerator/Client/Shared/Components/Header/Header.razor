@@ -3,7 +3,7 @@
 @inject NavigationManager Nav
 
 <nav class="flex flex-col sm:flex-row items-center justify-between p-4 bg-black text-white" style="font-family: 'DM Sans', sans-serif;">
-    <div class="flex items-center justify-between w-full sm:w-auto mb-4 sm:mb-0">
+    <div class="flex items-center justify-between w-full sm:w-auto sm:mb-0">
         <img src="images/nav-logo.png" alt="Logo" width="60" height="60" class="mr-2" />
         <span class="text-xs sm:text-sm font-light text-gray-300">CODIC SOLUTION</span>
 
@@ -24,7 +24,11 @@
     </div>
 
     <div class="@($"flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 gap-[1.5rem] {(menuOpen ? "block" : "hidden")} sm:flex")">
-        <NavLink class="px-4 py-2 bg-transparent text-xs sm:text-sm font-light text-gray-300 hover:text-gray-100" href="/pricing">PRICING</NavLink>
+        <NavLink href="/pricing">
+            <button class="px-4 py-2 bg-transparent text-xs sm:text-sm font-light text-gray-300 hover:text-gray-100"> 
+                PRICING
+            </button>
+        </NavLink>
 
         <Button Href="/signin" Variant="blue" Size="sm">LOGIN</Button>
         <Button Href="/signup" Variant="blue" Size="sm">SIGNUP</Button>
