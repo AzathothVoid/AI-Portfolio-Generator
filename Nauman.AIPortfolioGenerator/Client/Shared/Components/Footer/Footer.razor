@@ -1,0 +1,76 @@
+﻿<footer class="bg-black text-white p-8 rounded-t-[20px] bottom-0 left-0 w-full space-grotesk">
+    <div class="container mx-auto">
+        <div class="flex flex-col-reverse md:flex-row justify-between items-start">
+            <!-- Left side -->
+            <div class="mb-6 md:mb-0">
+                <img src="/assets/footer-logo.png" alt="Logo" class="h-12 mb-8" />
+
+                <!-- Social links -->
+                <div class="flex space-x-4 mb-8">
+                    <a href="#" class="text-white hover:text-gray-300">
+                        <i><img src="/assets/linkedin.png" alt="LinkedIn" /></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-gray-300">
+                        <i><img src="/assets/facebook.png" alt="Facebook" /></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-gray-300">
+                        <i><img src="/assets/twitter.png" alt="Twitter" /></i>
+                    </a>
+                </div>
+
+                <!-- Contact info -->
+                <div class="space-y-2 poppins">
+                    <p class="font-bold">Contact Us:</p>
+                    <p>Email: info@positivus.com</p>
+                    <p>Phone: 555-567-8901</p>
+                    <p>Address: 1234 Main St</p>
+                    <p>Moonstone City, Stardust State 12345</p>
+                </div>
+            </div>
+
+            <!-- Right side (subscription box) -->
+            <div class="mt-6 md:mt-[7rem] footer-subscription-box">
+                <div class="bg-white p-6 rounded-md shadow-md min-h-[150px] flex items-center justify-center">
+                    <EditForm Model="@subscriptionModel" OnValidSubmit="@HandleSubscribe">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                            <InputText @bind-Value="subscriptionModel.Email"
+                                       placeholder="Email"
+                                       class="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <button type="submit"
+                                    class="bg-customGray text-black px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Subscribe to news
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer bottom -->
+        <div class="mt-8 pt-8 border-t border-gray-700 flex items-center">
+            <p class="m-0">&copy; 2023 Positivus. All Rights Reserved.</p>
+            <a href="#" class="text-gray-300 hover:text-white ml-4 underline">
+                Privacy Policy
+            </a>
+        </div>
+    </div>
+</footer>
+
+@code {
+    // Simple form model
+    private SubscriptionModel subscriptionModel = new();
+
+    private void HandleSubscribe()
+    {
+        // Here you can add logic, e.g., send to API or service
+        Console.WriteLine($"Subscribed with: {subscriptionModel.Email}");
+    }
+
+    // Form model class
+    public class SubscriptionModel
+    {
+        public string? Email { get; set; }
+    }
+}

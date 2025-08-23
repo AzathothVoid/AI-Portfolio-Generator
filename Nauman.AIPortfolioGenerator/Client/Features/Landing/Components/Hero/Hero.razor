@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<section
+    class="min-h-screen w-full flex flex-col md:justify-center bg-cover bg-center bg-hero relative"
+    style="background-image: url('/assets/Hero.png')">
+    
+    <div class="container px-5 pt-[9rem] md:pt-0">
+        <div class="flex flex-col gap-4 text-white md:mt-[-11rem] hero-title">
+            
+            <h1 class="font-bold lg:w-[100%] hero-title"
+                style="font-size: clamp(2rem, 5vw, 5rem); line-height: 1.2;">
+                @Title
+            </h1>
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6 mt-4">
+                <div class="flex items-center hero-desc">
+                    <img src="/assets/tick.png" alt="Tick" class="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                    <p class="text-sm m-0 md:text-lg font-normal max-w-sm"
+                       style="font-size: clamp(0.875rem, 1.25vw, 1.125rem);">
+                        @Desc1
+                    </p>
+                </div>
+                <div class="flex items-center hero-desc">
+                    <img src="/assets/tick.png" alt="Tick" class="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                    <p class="text-sm m-0 md:text-lg font-normal max-w-sm"
+                       style="font-size: clamp(0.875rem, 1.25vw, 1.125rem);">
+                        @Desc2
+                    </p>
+                </div>
+                <div class="flex items-center hero-desc">
+                    <img src="/assets/tick.png" alt="Tick" class="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                    <p class="text-sm m-0 md:text-lg font-normal max-w-sm"
+                       style="font-size: clamp(0.875rem, 1.25vw, 1.125rem);">
+                        @Desc3
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 md:mt-8 hero-btn">
+                <Button Variant="blue" Type="button" Disabled="false" Size="lg">
+                    @BtnText
+                </Button>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 mx-auto bg-black bg-opacity-[0.4] text-white py-4 md:py-6"
+         style="width: 100%; max-width: 90%;">
+        <div class="container mx-auto px-5">
+            <div class="flex justify-center">
+                <div class="w-full max-w-screen-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-[11px] md:text-sm">
+                        <div class="flex flex-col hero-grid-item">
+                            <h2 class="font-bold mb-2 md:mb-4">Showcase Your Skills Seamlessly</h2>
+                            <p>Present your expertise with a design that speaks for itself, making a lasting impact.</p>
+                        </div>
+                        <div class="flex flex-col hero-grid-item">
+                            <h2 class="font-bold mb-2 md:mb-4">Crafted for Your Success</h2>
+                            <p>Highlight your talents with tailored templates that elevate your online presence.</p>
+                        </div>
+                        <div class="flex flex-col hero-grid-item">
+                            <h2 class="font-bold mb-2 md:mb-4">Build Your Brand Instantly</h2>
+                            <p>Create a portfolio that reflects your identity, capturing attention in moments.</p>
+                        </div>
+                        <div class="flex flex-col hero-grid-item">
+                            <h2 class="font-bold mb-2 md:mb-4">Designed to Impress</h2>
+                            <p>Make a statement with a sleek, professional layout that stands out effortlessly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Create Stunning Portfolios Effortlessly";  
+    [Parameter] public string Desc1 { get; set; } = "Design Modern Portfolio";
+    [Parameter] public string Desc2 { get; set; } = "Up to 50,000 templates";
+    [Parameter] public string Desc3 { get; set; } = "Easy and Modern Designs";
+    [Parameter] public string BtnText { get; set; } = "Get Started";
+}

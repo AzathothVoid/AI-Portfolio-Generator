@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -14,10 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Landing\Components\" />
     <Folder Include="Features\Landing\Models\" />
     <Folder Include="Contracts\" />
-    <Folder Include="Shared\Components\Footer\" />
   </ItemGroup>
 
 	<Target Name="Tailwind" BeforeTargets="Build">
