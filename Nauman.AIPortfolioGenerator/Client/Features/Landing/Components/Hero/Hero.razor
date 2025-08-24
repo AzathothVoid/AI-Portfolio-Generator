@@ -4,7 +4,7 @@
     class="min-h-screen w-full flex flex-col md:justify-center bg-cover bg-center bg-hero relative"
     style="background-image: url('/assets/Hero.png')">
     
-    <div class="container px-5 pt-[9rem] md:pt-0">
+    <div class="container pt-[9rem] md:pt-0">
         <div class="flex flex-col gap-4 text-white md:mt-[-11rem] hero-title">
             
             <h1 class="font-bold lg:w-[100%] hero-title"
@@ -74,7 +74,7 @@
 </section>
 
 @code {
-    [Parameter] public string Title { get; set; } = "Create Stunning Portfolios Effortlessly";  
+    [Parameter] public RenderFragment? Title { get; set; }
     [Parameter] public string Desc1 { get; set; } = "Design Modern Portfolio";
     [Parameter] public string Desc2 { get; set; } = "Up to 50,000 templates";
     [Parameter] public string Desc3 { get; set; } = "Easy and Modern Designs";
