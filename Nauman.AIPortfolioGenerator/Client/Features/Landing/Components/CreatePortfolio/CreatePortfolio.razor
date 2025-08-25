@@ -1,0 +1,31 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<section class="min-h-screen w-full flex flex-col justify-between bg-cover bg-center bg-CreatePortfolio py-8 md:py-16">
+  <div class="container mx-auto px-5 text-center flex-grow flex flex-col md:justify-center">
+    <div class="flex flex-col gap-4 text-white w-full mt-[8rem] md:mt-0">
+      <h1 class="font-bold max-w-[33rem] mx-auto portfolio-title"
+          style="font-size:clamp(30px, 4vw, 48px);">
+        @Title
+      </h1>
+
+      <p class="text-sm md:text-lg font-normal max-w-sm mx-auto mb-6 md:mb-0 portfolio-desc"
+         style="font-size:clamp(14px, 1.25vw, 20px);">
+        @Desc
+      </p>
+
+      <div class="flex-grow flex items-center justify-center mt-4 md:mt-[-0.5rem]">
+        <img src="/assets/CreatePortfolio.png"
+             alt="Create Portfolio"
+             class="max-w-[80%] md:max-w-[55%] h-auto cursor-pointer hover:opacity-80 transition-opacity duration-300 portfolio-image" />
+      </div>
+    </div>
+  </div>
+</section>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Create stunning, eye-catching portfolios";
+    [Parameter] public string Desc  { get; set; } = "Design Modern Portfolio — Up to 50,000 templates";
+
+   
+}
