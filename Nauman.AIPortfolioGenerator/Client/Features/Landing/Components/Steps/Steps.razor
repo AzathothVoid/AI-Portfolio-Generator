@@ -1,6 +1,7 @@
 ﻿@using System.Collections.Generic
 @using System.Linq
 @using Client.Features.Landing.Components.Steps.Models
+@using Client.Features.Landing.Components.Steps.Data
 
 <section class="min-h-screen w-full gap-4 flex flex-col bg-indigo-900 p-4 sm:p-8">
     <h1 class="text-white text-3xl sm:text-5xl font-light text-center mt-8 mb-24 sm:mb-24">
@@ -36,38 +37,6 @@
 </section>
 
 @code {
-    [Parameter] public string Title { get; set; } = "How it works";
-
-    // Data (mirrors your original steps array)
-    private List<StepItem> StepsList { get; } = new()
-    {
-        new StepItem(
-            Number: 1,
-            Description: "Start by signing up or logging in using your social media accounts for a seamless experience.",
-            Icon: "/assets/step1.svg",
-            Height: "11rem",
-            PaddingLeft: "0"
-        ),
-        new StepItem(
-            Number: 2,
-            Description: "Choose the field that best represents your expertise or interest. Browse through a selection of templates tailored to your chosen field and pick the one that suits you best.",
-            Icon: "/assets/step2.svg",
-            Height: "11rem",
-            PaddingLeft: "0"
-        ),
-        new StepItem(
-            Number: 3,
-            Description: "Personalize your chosen template by adjusting the colors, sizes, and design elements to match your style and preferences.",
-            Icon: "/assets/step3.svg",
-            Height: "14rem",
-            PaddingLeft: "0"
-        ),
-        new StepItem(
-            Number: 4,
-            Description: "Explore the pricing options and choose a plan that fits your needs. Once satisfied with your customization, publish your portfolio to showcase your work to the world.",
-            Icon: "/assets/step4.svg",
-            Height: "14rem",
-            PaddingLeft: "0"
-        )
-    };
+    [Parameter] public string Title { get; set; } = "How it works";    
+    private List<StepItem> StepsList {get; } = StepsData.StepsList;
 }
