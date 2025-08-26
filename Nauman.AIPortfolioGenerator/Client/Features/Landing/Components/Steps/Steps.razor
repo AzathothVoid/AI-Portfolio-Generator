@@ -1,0 +1,73 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Client.Features.Landing.Components.Steps.Models
+
+<section class="min-h-screen w-full gap-4 flex flex-col bg-indigo-900 p-4 sm:p-8">
+    <h1 class="text-white text-3xl sm:text-5xl font-light text-center mt-8 mb-24 sm:mb-24">
+        @Title
+    </h1>
+
+    <div class="flex flex-col items-center space-y-8 sm:space-y-16">
+        @foreach (var step in StepsList)
+        {
+            <div class=@($"flex w-full {(step.Number % 2 == 0 ? "justify-end" : "justify-start")} flex-col sm:flex-row")>
+                <div class="bg-white rounded-lg p-4 sm:p-8 flex flex-col sm:flex-row items-center w-full md:w-3/5 h-auto sm:h-[16rem]"
+                     style=@($"padding-left:{step.PaddingLeft};")>
+                    <div class="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
+                        <img src="@step.Icon"
+                             alt=@($"Step {step.Number} icon")
+                             style=@($"height:{step.Height};")
+                             class="steps-icons sm:w-full object-contain" />
+                    </div>
+
+                    <div class="flex flex-col justify-center h-full text-center sm:text-left px-4 sm:px-0">
+                        <h2 class="text-indigo-800 text-left text-xl sm:text-2xl font-bold mb-2 sm:mb-4">
+                            Step @step.Number
+                        </h2>
+                        <hr class="border-t-2  border-blue-500 mb-4 sm:mb-4 sm:w-[23%] sm:mx-0 w-[20%]" />
+                        <p class="text-gray-900 text-left font-bold text-sm sm:text-base">
+                            @step.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Title { get; set; } = "How it works";
+
+    // Data (mirrors your original steps array)
+    private List<StepItem> StepsList { get; } = new()
+    {
+        new StepItem(
+            Number: 1,
+            Description: "Start by signing up or logging in using your social media accounts for a seamless experience.",
+            Icon: "/assets/step1.svg",
+            Height: "11rem",
+            PaddingLeft: "0"
+        ),
+        new StepItem(
+            Number: 2,
+            Description: "Choose the field that best represents your expertise or interest. Browse through a selection of templates tailored to your chosen field and pick the one that suits you best.",
+            Icon: "/assets/step2.svg",
+            Height: "11rem",
+            PaddingLeft: "0"
+        ),
+        new StepItem(
+            Number: 3,
+            Description: "Personalize your chosen template by adjusting the colors, sizes, and design elements to match your style and preferences.",
+            Icon: "/assets/step3.svg",
+            Height: "14rem",
+            PaddingLeft: "0"
+        ),
+        new StepItem(
+            Number: 4,
+            Description: "Explore the pricing options and choose a plan that fits your needs. Once satisfied with your customization, publish your portfolio to showcase your work to the world.",
+            Icon: "/assets/step4.svg",
+            Height: "14rem",
+            PaddingLeft: "0"
+        )
+    };
+}
