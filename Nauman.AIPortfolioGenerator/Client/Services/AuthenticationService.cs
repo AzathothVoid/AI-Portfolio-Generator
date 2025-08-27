@@ -11,7 +11,6 @@ namespace Client.Services
             throw new NotImplementedException();
         }
 
-
         public Task<bool> Register()
         {
             throw new NotImplementedException();

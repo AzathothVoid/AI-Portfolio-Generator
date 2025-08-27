@@ -1,0 +1,84 @@
+﻿@page "/signin"
+
+<div class="h-[100vh] w-full flex justify-center items-center bg-[url('/assets/signin-bg.png')] bg-cover bg-no-repeat bg-center bg-black">
+    <aside class="w-full max-w-md">
+        <EditForm Model="@formData" OnValidSubmit="HandleSubmit" class="signup-form p-6">
+            <h1 class="text-left text-blue-600 font-bold text-3xl m-0 mb-8">Sign In</h1>
+
+            <div class="flex flex-col items-center">
+                <!-- Username -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="username"></label>
+                    <i class="fa fa-user text-white-500" style="color:#0466AE; margin:4px;"></i>
+                    <InputText @bind-Value="formData.Username"
+                               id="username"
+                               placeholder="Enter Username"
+                               class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl" />
+                </div>
+
+                <!-- Password -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="password"></label>
+                    <i class="fa fa-lock text-white-500" style="color:#0466AE; margin:4px;"></i>
+                    <InputText @bind-Value="formData.Password"
+                               id="password"
+                               placeholder="Enter Password"
+                               type="password"
+                               class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl" />
+                </div>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="w-64 mb-3 flex mt-2">
+                <label for="agreeToTerms" class="flex items-center text-xs text-white">
+                    <InputCheckbox @bind-Value="formData.AgreeToTerms"
+                                   id="agreeToTerms"
+                                   class="mr-3 appearance-none border-[#565454] border w-[15px] h-[15px] checked:bg-white" />
+                    Remember Me
+                </label>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit"
+                    class="bg-[#0466AE] text-white font-medium py-2 px-8 hover:text-black rounded-3xl mt-2 mb-6">
+                Login
+            </button>
+
+            <!-- Social login -->
+            <p class="text-white flex text-xs cursor-pointer text-center flex mt-5">
+                Or, Login with
+                <a href="https://www.facebook.com">
+                    <img src="/assets/Google.png" alt="Google Icon" width="20" height="20" class="ml-16" />
+                </a>
+                <a href="https://www.google.com">
+                    <img src="/assets/FB.png" alt="Facebook Icon" width="20" height="20" class="ml-2" />
+                </a>
+            </p>
+
+            <!-- Sign Up link -->
+            <p class="text-white text-xs cursor-pointer mt-5">
+                Don't have an account?
+                <a href="/signup">
+                    <span class="text-[#008BD9] px-3">Create One</span>
+                </a>
+            </p>
+        </EditForm>
+    </aside>
+</div>
+
+@code {
+    private SignInModel formData = new();
+
+    private void HandleSubmit()
+    {
+        Console.WriteLine($"Form Submitted: {formData.Username}, {formData.Password}");
+        // ✅ Instead of Console.WriteLine, call a service here for authentication
+    }
+
+    public class SignInModel
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public bool AgreeToTerms { get; set; }
+    }
+}
