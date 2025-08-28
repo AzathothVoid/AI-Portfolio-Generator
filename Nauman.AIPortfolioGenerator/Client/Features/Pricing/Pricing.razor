@@ -1,6 +1,94 @@
-﻿@page "/pricing"
-@layout MainLayout
+﻿@page "/pricing" 
 
-@code {
+@using Client.Features.Pricing.Models
+@using Client.Features.Pricing.Data
 
-}
+<div class="w-full py-[3rem] h-100 px-8 bg-black bg-[url('/assets/Pricing-bg.png')] bg-cover bg-no-repeat bg-center">
+    <h2 class="text-5xl font-xs text-white text-center py-2 mx-auto">
+        We offer great <span class="text-blue-400">price</span> plan <br />
+        for the application
+    </h2>
+
+    <div class="mt-4 mb-6 ml-5" style="display:flex;justify-content:center;align-items:center;">
+        <img src="/assets/monthlyyearly-bg.png" alt="monthly/yearly" width="150" height="100" />
+        <img src="/assets/arrow-bg.png" alt="arrow" width="150" height="100" class="mt-4 mr-5" />
+    </div>
+
+    <div class="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8 bg-gray-200 px-8 text-black">
+        @* Starter cards *@
+        @foreach (var (card, index) in PricingData.CardData1.Select((c, i) => (c, i)))
+        {
+            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white">
+                <h2 class="text-2xl font-xs text-center py-4">@card.Title</h2>
+                @if (card.Lines?.Any() ?? false)
+                {
+                    <p class="text-center text-sm font-xs mb-5">@card.Lines.First()</p>
+                }
+                <p class="text-center text-4xl font-bold mt-6 mb-6">@card.Price</p>
+                <button class="delay:30 hover:-translate-y-2 bg-white border-2 border-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3">
+                    Get Started
+                </button>
+            </div>
+        }
+
+        @* Pro cards (highlighted blue) *@
+        @foreach (var (card, index) in PricingData.CardData2.Select((c, i) => (c, i)))
+        {
+            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-4 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 @card.CardBackgroundClass">
+                <h2 class="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">Selected</h2>
+
+                <h2 class="text-2xl font-xs text-center py-2">@card.Title</h2>
+
+                @if (card.Lines?.Any() ?? false)
+                {
+                    foreach (var line in card.Lines)
+                    {
+                        <p class="text-center text-sm font-xs mb-2">@line</p>
+                    }
+                }
+
+                <p class="text-center text-4xl font-bold mt-1">
+                    @if (!string.IsNullOrEmpty(card.PricePrefix))
+                    {
+                        <span class="text-xs"> @card.PricePrefix</span>
+                    }
+                    @card.Price
+                    <span class="text-xs"> /month</span>
+                </p>
+
+                <button class="delay:30 hover:-translate-y-2 hover:text-black text-white hover:bg-gray-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3">
+                    Get Started
+                </button>
+            </div>
+        }
+
+        @* Business+ cards *@
+        @foreach (var (card, index) in PricingData.CardData3.Select((c, i) => (c, i)))
+        {
+            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white">
+                <h2 class="text-2xl font-xs text-center py-4">@card.Title</h2>
+
+                @if (card.Lines?.Any() ?? false)
+                {
+                    foreach (var line in card.Lines)
+                    {
+                        <p class="text-center text-sm font-xs mb-1">@line</p>
+                    }
+                }
+
+                <p class="text-center text-4xl font-bold mt-6 mb-6">
+                    @if (!string.IsNullOrEmpty(card.PricePrefix))
+                    {
+                        <span class="text-xs"> @card.PricePrefix</span>
+                    }
+                    @card.Price
+                    <span class="text-xs"> /month</span>
+                </p>
+
+                <button class="delay:30 hover:-translate-y-2 delay:30 bg-white hover:text-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-black">
+                    Get Started
+                </button>
+            </div>
+        }
+    </div>
+</div>
