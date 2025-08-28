@@ -1,6 +1,111 @@
 ﻿@page "/signup"
-@layout MainLayout
+@using Client.Features.Signup.Models
+@inject NavigationManager NavigationManager
+@* If you create an authentication service, inject it:
+   [Inject] IAuthService AuthService { get; set; } 
+*@
+
+<div class="h-[100vh] w-full flex justify-center items-center bg-[url('/assets/signup-bg.png')] bg-cover bg-no-repeat bg-center bg-black">
+    <aside class="w-full max-w-md">
+        <EditForm Model="formData" OnValidSubmit="HandleSubmit" class="signup-form p-6">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <h1 class="text-left text-[#0466AE] font-bold text-3xl m-0 mb-4">Sign Up</h1>
+
+            <div class="flex flex-col items-center">
+                <!-- First Name -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="firstname"></label>
+                    @* icon placeholder: you can replace with SVG or font-awesome *@
+                    <i class="fa fa-user-circle text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="firstname" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl"
+                               @bind-Value="formData.FirstName" placeholder="Enter First Name" />
+                </div>
+
+                <!-- Last Name -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="lastname"></label>
+                    <i class="fa fa-id-badge text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="lastname" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl"
+                               @bind-Value="formData.LastName" placeholder="Enter Last Name" />
+                </div>
+
+                <!-- Username -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="username"></label>
+                    <i class="fa fa-user text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="username" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl"
+                               @bind-Value="formData.Username" placeholder="Enter Username" />
+                </div>
+
+                <!-- Email -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="email"></label>
+                    <i class="fa fa-envelope text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="email" type="email" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl"
+                               @bind-Value="formData.Email" placeholder="Enter Email" />
+                </div>
+
+                <!-- Password -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
+                    <label for="password"></label>
+                    <i class="fa fa-lock text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="password" type="password" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl"
+                               @bind-Value="formData.Password" placeholder="Enter Password" />
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white bg-opacity-40">
+                    <label for="repassword"></label>
+                    <i class="fa fa-lock-open text-white-500 ml-1" style="color:#0466AE; margin:4px;"></i>
+                    <InputText id="repassword" type="password" class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl bg-opacity-40"
+                               @bind-Value="formData.RePassword" placeholder="Confirm Password" />
+                </div>
+            </div>
+
+            <!-- Agree to terms -->
+            <div class="w-64 mb-3 flex mt-1">
+                <label for="agreeToTerms" class="flex items-center text-xs text-white">
+                    <InputCheckbox id="agreeToTerms" class="mr-5 appearance-none w-[15px] h-[15px] rounded-full border border-[#565454] checked:bg-[#0466AE]"
+                                   @bind-Value="formData.AgreeToTerms" />
+                    I agree to all terms
+                </label>
+            </div>
+
+            <button type="submit" class="bg-[#0466AE] text-white font-medium py-2 px-8 hover:text-black rounded-3xl mt-2 mb-2">
+                Register
+            </button>
+
+            <br />
+
+            <p class="text-white text-xs cursor-pointer mt-5">
+                Already have an account?
+                <a href="/signin"><span class="text-[#0466AE] px-3">Sign in</span></a>
+            </p>
+        </EditForm>
+    </aside>
+</div>
 
 @code {
+    private SignUpModel formData = new();
 
+    // If you create and register an authentication service, inject it:
+    // [Inject] private IAuthService AuthService { get; set; }
+
+    private async Task HandleSubmit()
+    {
+        // Client-side validation (DataAnnotations) passed.
+        // Example: call auth service to register the user.
+        // If using vertical slice, call into your SignUp command/handler here.
+
+        // Example placeholder (replace with real implementation):
+        // var result = await AuthService.RegisterAsync(formData);
+        // if (result.Success) NavigationManager.NavigateTo("/welcome");
+
+        Console.WriteLine($"Register attempt: {formData.Username}, {formData.Email}");
+        await Task.CompletedTask;
+    }
+
+    
 }

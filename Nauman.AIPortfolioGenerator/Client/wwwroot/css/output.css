@@ -527,6 +527,9 @@
   .mr-3 {
     margin-right: calc(var(--spacing) * 3);
   }
+  .mr-5 {
+    margin-right: calc(var(--spacing) * 5);
+  }
   .mb-0 {
     margin-bottom: calc(var(--spacing) * 0);
   }
@@ -556,6 +559,9 @@
   }
   .mb-auto {
     margin-bottom: auto;
+  }
+  .ml-1 {
+    margin-left: calc(var(--spacing) * 1);
   }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
@@ -991,6 +997,9 @@
   .bg-\[url\(\'\/assets\/Signin\/signin-bg\.png\'\)\] {
     background-image: url('/assets/Signin/signin-bg.png');
   }
+  .bg-\[url\(\'\/assets\/signup-bg\.png\'\)\] {
+    background-image: url('/assets/signup-bg.png');
+  }
   .bg-cover {
     background-size: cover;
   }
@@ -1375,6 +1384,11 @@
         --tw-blur: blur(var(--blur-sm));
         filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
       }
+    }
+  }
+  .checked\:bg-\[\#0466AE\] {
+    &:checked {
+      background-color: #0466AE;
     }
   }
   .checked\:bg-white {

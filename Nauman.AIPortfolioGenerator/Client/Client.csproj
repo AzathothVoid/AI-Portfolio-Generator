@@ -17,11 +17,9 @@
   <ItemGroup>
     <Folder Include="Features\Landing\Models\" />
     <Folder Include="Features\Signin\Components\" />
-    <Folder Include="Features\Signin\Models\" />
     <Folder Include="Features\Pricing\Components\" />
     <Folder Include="Features\Pricing\Models\" />
     <Folder Include="Features\Signup\Components\" />
-    <Folder Include="Features\Signup\Models\" />
   </ItemGroup>
 
 	<Target Name="Tailwind" BeforeTargets="Build">
