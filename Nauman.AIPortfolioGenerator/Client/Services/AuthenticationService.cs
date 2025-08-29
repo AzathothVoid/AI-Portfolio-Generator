@@ -1,25 +1,53 @@
 ﻿using Client.Contracts;
 using Client.Services.Base;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Client.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService, BaseHttpService
     {
-        public AuthenticationService(IClient client, IHttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private JwtSecurityTokenHandler _tokenHandler;
+
+        public AuthenticationService(IClient client,ILocalStorageService localStorage, IHttpContextAccessor httpContextAccessor) : base(client, localStorage)
         {
-                    
+            _httpContextAccessor = httpContextAccessor;
+            _tokenHandler = new JwtSecurityTokenHandler();
         }
-        public Task<bool> Authenticate(string email, string password)
+        public async Task<bool> Authenticate(string email, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+                AuthRequest request = new AuthRequest() { Email = email, Password = password };
+                var authenticationResponse = await _client.LoginAsync(request);
+
+                if (authenticationResponse.Token != string.Empty)
+                {
+                    var tokenContent = _tokenHandler.ReadJwtToken(authenticaitonResponse.Token);
+                    var claims = ParseClaims(tokenContent);
+                    var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme))
+                    var login = _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user)
+                    _localStorage.SetStorageValue("token", authenticationResponse.Token);
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return true;
+            }
         }
 
-        public Task<bool> Register()
+        public async Task<bool> Register(string email, string password, string firstName, string lastName, string userName);
         {
-            throw new NotImplementedException();
+            RegistrationRequest request = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName, UserName = userName }
+            var response = await _client.RegisterAsync(request);
         }
 
         public Task Logout()
