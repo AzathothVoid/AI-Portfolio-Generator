@@ -3,51 +3,90 @@
 @using Client.Features.Pricing.Models
 @using Client.Features.Pricing.Data
 
-<div class="w-full py-[3rem] h-100 px-8 bg-black bg-[url('/assets/Pricing-bg.png')] bg-cover bg-no-repeat bg-center">
+<div class="w-full py-[3rem] px-8 bg-black bg-[url('/assets/Pricing-bg.png')] bg-cover bg-no-repeat bg-center">
     <h2 class="text-5xl font-xs text-white text-center py-2 mx-auto">
         We offer great <span class="text-blue-400">price</span> plan <br />
         for the application
     </h2>
 
     <div class="mt-4 mb-6 ml-5" style="display:flex;justify-content:center;align-items:center;">
-        <img src="/assets/monthlyyearly-bg.png" alt="monthly/yearly" width="150" height="100" />
-        <img src="/assets/arrow-bg.png" alt="arrow" width="150" height="100" class="mt-4 mr-5" />
+        <img src="/assets/pricing/monthlyyearly-bg.png" alt="monthly/yearly" width="150" height="100" />
+        <img src="/assets/pricing/arrow-bg.png" alt="arrow" width="150" height="100" class="mt-4 mr-5" />
     </div>
 
     <div class="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8 bg-gray-200 px-8 text-black">
         @* Starter cards *@
         @foreach (var (card, index) in PricingData.CardData1.Select((c, i) => (c, i)))
         {
-            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white">
-                <h2 class="text-2xl font-xs text-center py-4">@card.Title</h2>
+            var id = $"starter-{index}";
+            var isSelected = IsSelected(id);
+
+            var baseClass = "w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300";
+            var bgClass = isSelected ? "bg-blue-400 text-white" : "bg-white text-black";
+            var titleClass = isSelected ? "text-2xl text-white font-xs text-center py-4" : "text-2xl font-xs text-center py-4";
+            var lineClass = isSelected ? "text-center text-sm font-xs mb-5 text-white" : "text-center text-sm font-xs mb-5 text-black";
+            var priceClass = isSelected ? "text-center text-4xl font-bold mt-6 mb-6 text-white" : "text-center text-4xl font-bold mt-6 mb-6 text-black";
+            var buttonClass = isSelected
+                ? "delay:30 hover:-translate-y-2 bg-blue-600 text-white border-2 border-transparent hover:bg-blue-700 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3"
+                : "delay:30 hover:-translate-y-2 bg-white border-2 border-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3";
+
+            <div @key="id"
+                 class="@($"{baseClass} {bgClass}")"
+                 @onclick="() => SelectCard(id)">
+                @if (isSelected)
+                {
+                    <h2 class="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">Selected</h2>
+                }
+
+                <h2 class="@titleClass">@card.Title</h2>
                 @if (card.Lines?.Any() ?? false)
                 {
-                    <p class="text-center text-sm font-xs mb-5">@card.Lines.First()</p>
+                    <p class="@lineClass">@card.Lines.First()</p>
                 }
-                <p class="text-center text-4xl font-bold mt-6 mb-6">@card.Price</p>
-                <button class="delay:30 hover:-translate-y-2 bg-white border-2 border-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3">
+                <p class="@priceClass">@card.Price</p>
+
+                <button class="@buttonClass"
+                        @onclick:stopPropagation="true"
+                        @onclick="() => OnGetStarted(card)">
                     Get Started
                 </button>
             </div>
         }
 
-        @* Pro cards (highlighted blue) *@
+        @* Pro cards *@
         @foreach (var (card, index) in PricingData.CardData2.Select((c, i) => (c, i)))
         {
-            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-4 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 @card.CardBackgroundClass">
-                <h2 class="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">Selected</h2>
+            var id = $"pro-{index}";
+            var isSelected = IsSelected(id);
 
-                <h2 class="text-2xl font-xs text-center py-2">@card.Title</h2>
+            var baseClass = "w-full shadow-xl flex flex-col p-4 my-8 px-4 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300";
+            var bgClass = isSelected ? "bg-blue-400 text-white" : "bg-white text-black";
+            var selectedBadge = isSelected ? (RenderFragment)(@<h2 class="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">Selected</h2>) : null;
+            var titleClass = isSelected ? "text-2xl text-white font-xs text-center py-2" : "text-2xl font-xs text-center py-2";
+            var lineClass = isSelected ? "text-center text-sm font-xs mb-2 text-white" : "text-center text-sm font-xs mb-2 text-black";
+            var priceClass = isSelected ? "text-center text-4xl font-bold mt-6 mb-6 text-white" : "text-center text-4xl font-bold mt-6 mb-6 text-black";
+            var buttonClass = isSelected
+                ? "delay:30 hover:-translate-y-2 hover:text-black text-white bg-blue-600 hover:bg-blue-700 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3"
+                : "delay:30 hover:-translate-y-2 hover:text-black text-black bg-white hover:bg-gray-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3 border-2 border-black";
+
+            <div @key="id"
+                 class="@($"{baseClass} {bgClass}")"
+                 @onclick="() => SelectCard(id)">
+                @if (isSelected)
+                {
+                    @selectedBadge
+                }
+                <h2 class="@titleClass">@card.Title</h2>
 
                 @if (card.Lines?.Any() ?? false)
                 {
                     foreach (var line in card.Lines)
                     {
-                        <p class="text-center text-sm font-xs mb-2">@line</p>
+                        <p class="@lineClass">@line</p>
                     }
                 }
 
-                <p class="text-center text-4xl font-bold mt-1">
+                <p class="@priceClass">
                     @if (!string.IsNullOrEmpty(card.PricePrefix))
                     {
                         <span class="text-xs"> @card.PricePrefix</span>
@@ -56,7 +95,9 @@
                     <span class="text-xs"> /month</span>
                 </p>
 
-                <button class="delay:30 hover:-translate-y-2 hover:text-black text-white hover:bg-gray-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3">
+                <button class="@buttonClass"
+                        @onclick:stopPropagation="true"
+                        @onclick="() => OnGetStarted(card)">
                     Get Started
                 </button>
             </div>
@@ -65,18 +106,37 @@
         @* Business+ cards *@
         @foreach (var (card, index) in PricingData.CardData3.Select((c, i) => (c, i)))
         {
-            <div @key="index" class="w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white">
-                <h2 class="text-2xl font-xs text-center py-4">@card.Title</h2>
+            var id = $"business-{index}";
+            var isSelected = IsSelected(id);
+
+            var baseClass = "w-full shadow-xl flex flex-col p-4 my-8 px-8 rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300";
+            var bgClass = isSelected ? "bg-blue-400 text-white" : "bg-white text-black";
+            var titleClass = isSelected ? "text-2xl text-white font-xs text-center py-4" : "text-2xl font-xs text-center py-4";
+            var lineClass = isSelected ? "text-center text-sm font-xs mb-1 text-white" : "text-center text-sm font-xs mb-1 text-black";
+            var priceClass = isSelected ? "text-center text-4xl font-bold mt-6 mb-6 text-white" : "text-center text-4xl font-bold mt-6 mb-6 text-black";
+            var buttonClass = isSelected
+                ? "delay:30 hover:-translate-y-2 bg-blue-600 text-white hover:bg-blue-700 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-transparent"
+                : "delay:30 hover:-translate-y-2 delay:30 bg-white hover:text-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-black";
+
+            <div @key="id"
+                 class="@($"{baseClass} {bgClass}")"
+                 @onclick="() => SelectCard(id)">
+                @if (isSelected)
+                {
+                    <h2 class="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">Selected</h2>
+                }
+
+                <h2 class="@titleClass">@card.Title</h2>
 
                 @if (card.Lines?.Any() ?? false)
                 {
                     foreach (var line in card.Lines)
                     {
-                        <p class="text-center text-sm font-xs mb-1">@line</p>
+                        <p class="@lineClass">@line</p>
                     }
                 }
 
-                <p class="text-center text-4xl font-bold mt-6 mb-6">
+                <p class="@priceClass">
                     @if (!string.IsNullOrEmpty(card.PricePrefix))
                     {
                         <span class="text-xs"> @card.PricePrefix</span>
@@ -85,10 +145,49 @@
                     <span class="text-xs"> /month</span>
                 </p>
 
-                <button class="delay:30 hover:-translate-y-2 delay:30 bg-white hover:text-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-black">
+                <button class="@buttonClass"
+                        @onclick:stopPropagation="true"
+                        @onclick="() => OnGetStarted(card)">
                     Get Started
                 </button>
             </div>
         }
     </div>
 </div>
+
+@code {
+    // By default select the middle (Pro) card if it exists
+    private string selectedCardId = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        // default to pro-0 if present else fallback to starter-0 or business-0
+        if (PricingData.CardData2?.Count > 0)
+        {
+            selectedCardId = $"pro-0";
+        }
+        else if (PricingData.CardData1?.Count > 0)
+        {
+            selectedCardId = $"starter-0";
+        }
+        else if (PricingData.CardData3?.Count > 0)
+        {
+            selectedCardId = $"business-0";
+        }
+    }
+
+    private void SelectCard(string id)
+    {
+        selectedCardId = id;
+    }
+
+    private bool IsSelected(string id) => string.Equals(selectedCardId, id, StringComparison.Ordinal);
+
+    // Handler for Get Started - button click does not change selection due to stopPropagation
+    // Replace with your actual action (navigate, open checkout modal, etc.)
+    private void OnGetStarted(PricingCard card)
+    {
+        // example: navigate, show modal, call service etc.
+        Console.WriteLine($"Get Started clicked for {card.Title}");
+    }
+}

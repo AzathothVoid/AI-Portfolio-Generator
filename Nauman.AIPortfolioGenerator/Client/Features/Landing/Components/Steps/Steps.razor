@@ -12,7 +12,7 @@
         @foreach (var step in StepsList)
         {
             <div class=@($"flex w-full {(step.Number % 2 == 0 ? "justify-end" : "justify-start")} flex-col sm:flex-row")>
-                <div class="bg-white rounded-lg p-4 sm:p-8 flex flex-col sm:flex-row items-center w-full md:w-3/5 h-auto sm:h-[16rem]"
+                <div class="bg-white rounded-lg p-4 sm:p-8 flex flex-col sm:flex-row items-center w-full stepCustom:w-3/5 h-auto sm:h-[16rem]"
                      style=@($"padding-left:{step.PaddingLeft};")>
                     <div class="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
                         <img src="@step.Icon"
@@ -21,7 +21,7 @@
                              class="steps-icons sm:w-full object-contain" />
                     </div>
 
-                    <div class="flex flex-col justify-center h-full text-center sm:text-left px-4 sm:px-0">
+                    <div class="flex flex-col justify-start h-full text-center sm:text-left px-4 sm:px-0">
                         <h2 class="text-indigo-800 text-left text-xl sm:text-2xl font-bold mb-2 sm:mb-4">
                             Step @step.Number
                         </h2>

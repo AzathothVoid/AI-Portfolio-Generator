@@ -2,7 +2,7 @@
 @using Client.Features.Landing.Components.Categories.Data
 @inject NavigationManager NavigationManager
 
-<section class="h-[160vh] w-full flex flex-col bg-cover bg-center bg-black">
+<section class="h-auto w-full flex flex-col py-[24px] bg-cover bg-center bg-black">
   <div class="container mx-auto px-5 text-center mt-16">
     <div class="flex flex-col gap-4 text-white w-full">
       <h1 class="font-light max-w-[33rem] mx-auto" style="font-size:6vw; margin-top:0;">
@@ -15,7 +15,7 @@
           {
             var isActive = activeButton == buttonName;
             var btnClass = isActive ? "bg-black text-white" : "bg-white text-black";
-            <button class="@($"{btnClass} rounded px-2 py-1 text-sm hover:bg-gray-900 focus:outline-none")"
+            <button class="@($"{btnClass} rounded px-2 py-1 text-sm hover:bg-gray-900 hover:text-white focus:outline-none")"
                     @onclick="() => HandleClick(buttonName)">
               @buttonName
             </button>
@@ -93,8 +93,8 @@
       @if (FilteredImageDetails.Count() > itemsPerPage)
       {
         <div class="flex justify-center mt-4 md:hidden">
-          <button class="bg-white text-black px-3 py-1 rounded-full mr-2" @onclick="HandlePrevPage" disabled="@(currentPage == 1)">Previous</button>
-          <button class="bg-white text-black px-3 py-1 rounded-full" @onclick="HandleNextPage" disabled="@(currentPage == TotalPages)">Next</button>
+          <button class="bg-white text-black px-3 py-1 rounded-full mr-2 hover:bg-black hover:text-white" @onclick="HandlePrevPage" disabled="@(currentPage == 1)">Previous</button>
+          <button class="bg-white text-black px-3 py-1 rounded-full hover:bg-black hover:text-white" @onclick="HandleNextPage" disabled="@(currentPage == TotalPages)">Next</button>
         </div>
       }
     </div>
