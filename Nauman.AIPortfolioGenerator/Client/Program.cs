@@ -9,6 +9,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSingleton(ILocalStorageService, LocalStorageService);
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProviderService>();
+builder.Services.AddAuthorizationCore();
 
 builder.Services.AddHttpClient<IClient, Client.Services.Base.Client>(sp =>
     sp.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
