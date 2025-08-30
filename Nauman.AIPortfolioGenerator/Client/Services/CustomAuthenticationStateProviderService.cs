@@ -1,4 +1,5 @@
 ﻿using Client.Contracts;
+using Client.Utility;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 
@@ -7,15 +8,28 @@ namespace Client.Services
     public class CustomAuthenticationStateProviderService : AuthenticationStateProvider
     {
         private readonly ILocalStorageService _localStorage;
+        private readonly ClaimsPrincipal _anonymous = new(new ClaimsIdentity());
 
-        public CustomAuthenticationStateProviderService(ILocalStorageService  localStorage)
+        public CustomAuthenticationStateProviderService(ILocalStorageService localStorage)
         {
             _localStorage = localStorage;
         }
 
-        public override Task<AuthenticationState> GetAuthenticationStateAsync()
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            throw new NotImplementedException();
+            var token = _localStorage.GetStorageValue<string>("token");
+
+            if (string.IsNullOrEmpty(token))
+            {  
+                return new AuthenticationState(_anonymous);            
+            }
+
+
+            var tokenContent = JwtUtility.ReadJwtToken(token);
+            var claims = JwtUtility.ParseClaims(tokenContent);
+            var identity = new ClaimsIdentity(claims, "jwt");
+            var user = new ClaimsPrincipal(identity);
+            return new AuthenticationState(user);
         }
 
         public void NotifyUserAuthentication(List<Claim> claims)
@@ -25,4 +39,11 @@ namespace Client.Services
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
+
+        public void NotifyUserLogout()
+        {
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_anonymous)));
+        }
+    }
+}
 
