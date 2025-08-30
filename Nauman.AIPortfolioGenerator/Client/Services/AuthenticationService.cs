@@ -1,5 +1,7 @@
 ﻿using Client.Contracts;
 using Client.Services.Base;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +10,7 @@ using System.Security.Claims;
 
 namespace Client.Services
 {
-    public class AuthenticationService : IAuthenticationService, BaseHttpService
+    public class AuthenticationService : BaseHttpService, Contracts.IAuthenticationService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private JwtSecurityTokenHandler _tokenHandler;
@@ -27,10 +29,10 @@ namespace Client.Services
 
                 if (authenticationResponse.Token != string.Empty)
                 {
-                    var tokenContent = _tokenHandler.ReadJwtToken(authenticaitonResponse.Token);
+                    var tokenContent = _tokenHandler.ReadJwtToken(authenticationResponse.Token);
                     var claims = ParseClaims(tokenContent);
-                    var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme))
-                    var login = _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user)
+                    var user = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+                    await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);          
                     _localStorage.SetStorageValue("token", authenticationResponse.Token);
 
                     return true;
@@ -44,20 +46,38 @@ namespace Client.Services
             }
         }
 
-        public async Task<bool> Register(string email, string password, string firstName, string lastName, string userName);
+        public async Task<bool> Register(string email, string password, string firstName, string lastName, string userName)
         {
-            RegistrationRequest request = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName, UserName = userName }
+            RegistrationRequest request = new()
+            {
+                Email = email,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName,
+                UserName = userName
+            };
+
             var response = await _client.RegisterAsync(request);
+
+            if (!string.IsNullOrEmpty(response.UserId))
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public Task Logout()
+        public async Task Logout()
         {
-            throw new NotImplementedException();
+            _localStorage.ClearStorage(new List<string> { "token" });
+            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         private IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
         {
-            throw new NotImplementedException();
+            var claims = tokenContent.Claims.ToList();
+            claims.Add(new Claim(ClaimTypes.Name, tokenContent.Subject));
+            return claims;
         }
     }
 }
