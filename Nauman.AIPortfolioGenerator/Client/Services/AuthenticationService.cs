@@ -1,15 +1,7 @@
 ﻿using Client.Contracts;
 using Client.Services.Base;
 using Client.Utility;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Client.Services
 {
@@ -28,6 +20,8 @@ namespace Client.Services
                 AuthRequest request = new AuthRequest() { Email = email, Password = password };
                 var authenticationResponse = await _client.LoginAsync(request);
 
+                Console.WriteLine($"Auth Response: {authenticationResponse.Id}");
+
                 if (authenticationResponse.Token != string.Empty)
                 {
                     var tokenContent = JwtUtility.ReadJwtToken(authenticationResponse.Token);
@@ -45,7 +39,7 @@ namespace Client.Services
             }
             catch (Exception ex)
             {
-                return true;
+                return false;
             }
         }
 

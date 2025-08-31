@@ -1,6 +1,7 @@
 ﻿using Client.Contracts;
 using Client.Utility;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Client.Services
@@ -19,11 +20,12 @@ namespace Client.Services
         {
             var token = _localStorage.GetStorageValue<string>("token");
 
+            Debug.WriteLine($"Token: {token}");
+
             if (string.IsNullOrEmpty(token))
             {  
                 return new AuthenticationState(_anonymous);            
             }
-
 
             var tokenContent = JwtUtility.ReadJwtToken(token);
             var claims = JwtUtility.ParseClaims(tokenContent);

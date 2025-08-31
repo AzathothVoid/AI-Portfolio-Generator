@@ -1,5 +1,7 @@
 ﻿@page "/signin"
 @using Client.Features.Signin.Models;
+@inject IAuthenticationService AuthenticationService;
+@inject NavigationManager Nav;
 
 <div class="h-[100vh] w-full flex justify-center items-center bg-[url('/assets/Signin/signin-bg.png')] bg-cover bg-no-repeat bg-center bg-black">
     <aside class="w-full max-w-md">
@@ -7,13 +9,13 @@
             <h1 class="text-left text-[#0466AE] font-bold text-3xl m-0 mb-8">Sign In</h1>
 
             <div class="flex flex-col items-center">
-                <!-- Username -->
+                <!-- Email -->
                 <div class="bg-black-100 w-full p-2 flex items-center mb-3 rounded-t-xl rounded-b-xl border border-white">
-                    <label for="username"></label>
+                    <label for="emailSignin"></label>
                     <i class="fa fa-user text-white-500" style="color:#0466AE; margin:4px;"></i>
-                    <InputText @bind-Value="formData.Username"
-                               id="username"
-                               placeholder="Enter Username"
+                    <InputText @bind-Value="formData.Email"
+                               id="emailSignin"
+                               placeholder="Enter Email"
                                class="py-2 w-full px-5 bg-black text-white text-xs font-light outline-none rounded-t-xl rounded-b-xl" />
                 </div>
 
@@ -70,9 +72,20 @@
 @code {
     private SignInModel formData = new();
 
-    private void HandleSubmit()
+    private async void HandleSubmit()
     {
-        Console.WriteLine($"Form Submitted: {formData.Username}, {formData.Password}");
-        // ✅ Instead of Console.WriteLine, call a service here for authentication
+        var resp = await AuthenticationService.Authenticate(formData.Email, formData.Password);
+
+        if (resp)
+        {
+            // Handle successful authentication (e.g., navigate to a different page)
+            Nav.NavigateTo("/");
+            Console.WriteLine("Login successful!");
+        }
+        else
+        {
+            // Handle failed authentication (e.g., show an error message)
+            Console.WriteLine("Login failed. Please check your credentials.");
+        }
     }
 }

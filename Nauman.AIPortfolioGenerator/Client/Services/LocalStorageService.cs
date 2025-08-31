@@ -31,7 +31,14 @@ namespace Client.Services
 
         public T GetStorageValue<T>(string key)
         {
-            return _storage.Get<T>(key);
+            try
+            {
+                return _storage.Get<T>(key);
+            }
+            catch (ArgumentNullException)
+            {
+                return default(T);
+            }
         }
 
         public void SetStorageValue<T>(string key, T value)
