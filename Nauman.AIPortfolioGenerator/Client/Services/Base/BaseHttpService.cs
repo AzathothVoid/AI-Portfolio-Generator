@@ -1,5 +1,4 @@
 ﻿using Client.Contracts;
-using Hanssens.Net;
 
 namespace Client.Services.Base
 {
@@ -43,9 +42,9 @@ namespace Client.Services.Base
             }
         }
 
-        protected void AddBearerToken()
+        protected async void AddBearerToken()
         {
-            var token = _localStorage.GetStorageValue<string>("token");
+            var token = await _localStorage.GetStorageValueAsync<string>("token");
             if (!string.IsNullOrEmpty(token))
             {
                 _client.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);

@@ -2,9 +2,9 @@
 {
     public interface ILocalStorageService
     {
-        void ClearStorage(List<string> keys);
-        bool Exists(string  key);
-        T GetStorageValue<T>(string key);
-        void SetStorageValue<T>(string key, T value);
+        Task SetStorageValueAsync<T>(string key, T value);
+        Task<T> GetStorageValueAsync<T>(string key);
+        Task<bool> ExistsAsync(string key);
+        Task ClearStorageAsync(List<string> keys);
     }
 }

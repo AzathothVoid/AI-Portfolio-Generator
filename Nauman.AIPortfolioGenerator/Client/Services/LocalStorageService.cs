@@ -1,50 +1,41 @@
-﻿using Client.Contracts;
-using Hanssens.Net;
+﻿using Microsoft.JSInterop;
+using System.Text.Json;
+using Client.Contracts;
 
 namespace Client.Services
 {
     public class LocalStorageService : ILocalStorageService
     {
-        private LocalStorage _storage;
-        public LocalStorageService()
+        private readonly IJSRuntime _js;
+
+        public LocalStorageService(IJSRuntime js)
         {
-            var config = new LocalStorageConfiguration()
-            {
-                AutoLoad = true,
-                AutoSave = true,
-                Filename = "AI.PORTFOLIOGEN"
-            };
-            _storage = new LocalStorage(config);       
-        }
-        public void ClearStorage(List<string> keys)
-        {
-            foreach(var key in keys)
-            {
-                _storage.Remove(key);
-            }
+            _js = js;
         }
 
-        public bool Exists(string key)
+        public async Task SetStorageValueAsync<T>(string key, T value)
         {
-            return _storage.Exists(key);
+            await _js.InvokeVoidAsync("localStorage.setItem", key, JsonSerializer.Serialize(value));
         }
 
-        public T GetStorageValue<T>(string key)
+        public async Task<T> GetStorageValueAsync<T>(string key)
         {
-            try
-            {
-                return _storage.Get<T>(key);
-            }
-            catch (ArgumentNullException)
-            {
-                return default(T);
-            }
+            var json = await _js.InvokeAsync<string>("localStorage.getItem", key);
+            return json == null ? default : JsonSerializer.Deserialize<T>(json);
         }
 
-        public void SetStorageValue<T>(string key, T value)
+        public async Task<bool> ExistsAsync(string key)
         {
-            _storage.Store(key, value);
-            _storage.Persist();
+            var value = await _js.InvokeAsync<string>("localStorage.getItem", key);
+            return value != null;
+        }
+
+        public async Task ClearStorageAsync(List<string> keys)
+        {
+            foreach (var key in keys)
+            {
+                await _js.InvokeVoidAsync("localStorage.removeItem", key);
+            }
         }
     }
 }

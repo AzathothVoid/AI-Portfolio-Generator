@@ -31,7 +31,7 @@ namespace Client.Services
                     if (_authStateProvider is CustomAuthenticationStateProviderService custom)
                         custom.NotifyUserAuthentication(claims);
 
-                    _localStorage.SetStorageValue("token", authenticationResponse.Token);
+                    await _localStorage.SetStorageValueAsync("token", authenticationResponse.Token);
 
                     return true;
                 }
@@ -68,7 +68,7 @@ namespace Client.Services
 
         public async Task Logout()
         {
-            _localStorage.ClearStorage(new List<string> { "token" });
+            await _localStorage.ClearStorageAsync(new List<string> { "token" });
 
             if (_authStateProvider is CustomAuthenticationStateProviderService custom)
                 custom.NotifyUserLogout();

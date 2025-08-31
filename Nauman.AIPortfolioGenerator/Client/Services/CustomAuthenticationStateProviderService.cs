@@ -18,7 +18,7 @@ namespace Client.Services
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = _localStorage.GetStorageValue<string>("token");
+            var token = await _localStorage.GetStorageValueAsync<string>("token");
 
             Console.WriteLine($"Token: {token}");
 
