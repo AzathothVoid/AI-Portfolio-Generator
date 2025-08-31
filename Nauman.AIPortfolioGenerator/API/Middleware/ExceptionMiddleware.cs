@@ -1,4 +1,5 @@
-﻿using Application.Responses.Common;
+﻿using Application.Exceptions;
+using Application.Responses.Common;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Errors.Model;
 using System.Net;
@@ -30,16 +31,23 @@ namespace API.Middleware
             var response = new BaseResponse();
             response.Success = false;
             var statusCode = HttpStatusCode.InternalServerError;
-            response.Message = JsonConvert.SerializeObject(exception.Message);            
+            response.Message = exception.Message;
 
-            switch(exception)
+            switch (exception)
             {
                 case BadRequestException badRequestException:
                     statusCode = HttpStatusCode.BadRequest;
+                    response.Message = badRequestException.Message;
+                    break;
+                case UserNotFoundException userNotFoundException1:
+                    statusCode = HttpStatusCode.NotFound;
+                    response.Message = userNotFoundException1.Message;
                     break;
                 default:
                     break;
             }
+
+            context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
             return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
         }

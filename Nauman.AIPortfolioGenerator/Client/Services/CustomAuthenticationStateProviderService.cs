@@ -20,7 +20,7 @@ namespace Client.Services
         {
             var token = _localStorage.GetStorageValue<string>("token");
 
-            Debug.WriteLine($"Token: {token}");
+            Console.WriteLine($"Token: {token}");
 
             if (string.IsNullOrEmpty(token))
             {  

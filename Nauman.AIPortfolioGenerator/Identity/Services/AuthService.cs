@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Identity;
+using Application.Exceptions;
 using Application.Models.Identity;
 using Identity.Models;
 using Infrastructure.Hasher;
@@ -33,14 +34,24 @@ namespace Identity.Services
 
             if (user == null)
             {
-                throw new Exception($"User with {request.Email} not found");
+                throw new UserNotFoundException()
+                { 
+                    Email = request.Email,
+                    Message = "User not found", 
+                };
+
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 
             if(!result.Succeeded)
             {
-                throw new Exception($"Credentials for {request.Email} are not valid");
+                var ex = new AuthCredentialsException()
+                {
+                    Message = "Invalid Passsword",
+                };
+                ex.IncorrectCredentials.Add("Password");
+                throw ex;
             }
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
@@ -62,9 +73,20 @@ namespace Identity.Services
             var userUsername = await _userManager.FindByNameAsync(request.UserName);
 
             if (userEmail != null)
-                throw new Exception($"User with email {request.Email} already exists");
+            {
+                throw new AuthCredentialsException()
+                {
+
+                };
+            }
+
             if (userUsername != null)
-                throw new Exception($"User with username {request.UserName} already exists");
+            {
+                throw new AuthCredentialsException()
+                {
+
+                };
+            }
 
 
             var newUser = new ApplicationUser

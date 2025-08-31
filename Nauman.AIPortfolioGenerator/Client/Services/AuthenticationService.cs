@@ -2,6 +2,7 @@
 using Client.Services.Base;
 using Client.Utility;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
 
 namespace Client.Services
 {
@@ -17,11 +18,11 @@ namespace Client.Services
         {
             try
             {
+                Console.WriteLine("Request Start");
                 AuthRequest request = new AuthRequest() { Email = email, Password = password };
                 var authenticationResponse = await _client.LoginAsync(request);
 
-                Console.WriteLine($"Auth Response: {authenticationResponse.Id}");
-
+                Console.WriteLine("Responseeee: " + authenticationResponse);
                 if (authenticationResponse.Token != string.Empty)
                 {
                     var tokenContent = JwtUtility.ReadJwtToken(authenticationResponse.Token);
@@ -39,6 +40,7 @@ namespace Client.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception Error: " + ex.Message);
                 return false;
             }
         }
@@ -67,9 +69,9 @@ namespace Client.Services
         public async Task Logout()
         {
             _localStorage.ClearStorage(new List<string> { "token" });
-           
+
+            if (_authStateProvider is CustomAuthenticationStateProviderService custom)
+                custom.NotifyUserLogout();
         }
-
-
     }
 }

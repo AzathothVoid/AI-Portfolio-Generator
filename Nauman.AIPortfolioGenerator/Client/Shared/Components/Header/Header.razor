@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components
+@inject IAuthenticationService AuthenticationService;
+@inject AuthenticationStateProvider AuthStateProvider;
 @inject NavigationManager Nav
 
     <nav class="flex flex-col sm:flex-row items-center justify-between p-4 bg-black text-white" style="font-family: 'DM Sans', sans-serif;">
@@ -26,7 +28,7 @@
         </div>
         <AuthorizeView> 
             <Authorized>
-                <Button Href="/signin" Variant="blue" Size="sm">LOGOUT</Button>
+                <Button ClickEvent="Logout" Variant="blue" Size="sm">LOGOUT</Button>
             </Authorized>
             <NotAuthorized> 
                 <div class="@($"flex-col sm:flex-row space-y-2 gap-4 sm:space-y-0 sm:space-x-4 {(menuOpen ? "block" : "hidden")} flex")">
@@ -50,5 +52,11 @@
     void ToggleMenu()
     {
         menuOpen = !menuOpen;
+    }
+
+    async void Logout()
+    {
+        Console.WriteLine("Logging out...");
+        await AuthenticationService.Logout();
     }
 }
