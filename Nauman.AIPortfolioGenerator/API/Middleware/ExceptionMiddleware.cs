@@ -43,6 +43,10 @@ namespace API.Middleware
                     statusCode = HttpStatusCode.NotFound;
                     response.Message = userNotFoundException1.Message;
                     break;
+                case AuthCredentialsException authCredentialsException: 
+                    statusCode = HttpStatusCode.BadRequest;
+                    response.Message = authCredentialsException.Message;
+                    break;
                 default:
                     break;
             }

@@ -40,7 +40,7 @@ namespace Client.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception Error: " + ex.Message);
+                Console.WriteLine("Exception Error: " + ex);
                 return false;
             }
         }
