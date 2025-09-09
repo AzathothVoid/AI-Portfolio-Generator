@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Nauman.AIPortfolioGenerator.Application.Features.Portfolios.Handlers.Queries
 {
     public class GetPortfolioDetailsRequestHandler : IRequestHandler<GetPortfolioDetailsRequest, CustomQueryResponse<PortfolioDTO>>

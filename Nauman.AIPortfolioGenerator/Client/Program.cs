@@ -5,14 +5,12 @@ using Client.Services.Base;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.JSInterop;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
-//builder.Services.AddScoped<IJSRuntime, JSRuntime>();
 builder.Services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProviderService>();
 builder.Services.AddAuthorizationCore();
 
