@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Edit\Components\" />
+    <Folder Include="Features\Edit\Models\" />
     <Folder Include="Features\Landing\Models\" />
     <Folder Include="Features\Signin\Components\" />
     <Folder Include="Features\Pricing\Components\" />
