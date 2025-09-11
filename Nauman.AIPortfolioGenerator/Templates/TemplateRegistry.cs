@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Templates
 {
-    public record TemplateInfo(string Id, string Name, string PreviewUrl, Type RootComponent);
+    public record TemplateInfo(int Id, string Name, string PreviewUrl, Type RootComponent);
     public static class TemplateRegistry
     {
         public static IReadOnlyList<TemplateInfo> All { get; } = new[]
         {
           
             new TemplateInfo(
-                Id: "modern-one",
+                Id: 1,
                 Name: "Modern One",
-                PreviewUrl: "/_content/Nauman.AIPortfolioGenerator.Templates/preview/modern-one.png",
+                PreviewUrl: "/_content/Templates/preview/modern-one.png",
                 RootComponent: typeof(Templates.Template1.Root) 
             ),           
         };
